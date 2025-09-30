@@ -1,2 +1,4 @@
 format: jb-book
 root: notebooks/01_intro
+chapters:
+  - file: notebooks/02_singleElectronScatering
