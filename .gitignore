@@ -1,0 +1,15 @@
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# jupyter
+.ipynb_checkpoints/
+*.log
+
+# jupyter-book build
+_build/
+
+# data
+data/*
+!data/README.md  # 仅留一个说明
