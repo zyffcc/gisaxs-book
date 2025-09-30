@@ -1,5 +1,8 @@
 title: "GISAXS Data Analysis"
 author: "Yufeng Zhai"
+repository:
+  url: https://github.com/zyffcc/gisaxs-book
+  branch: main
 html:
   use_repository_button: true
   use_edit_page_button: true
