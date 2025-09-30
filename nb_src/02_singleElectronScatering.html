@@ -1,0 +1,663 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>单电子 X 射线散射（Thomson &amp; Compton) &#8212; GISAXS Data Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nb_src/02_singleElectronScatering';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../notebooks/01_intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">GISAXS Data Analysis</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../notebooks/01_intro.html">
+                    GISAXS 数据分析介绍
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/02_singleElectronScatering.html">单电子 X 射线散射（Thomson &amp; Compton)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/zyffcc/gisaxs-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/zyffcc/gisaxs-book/edit/main/nb_src/02_singleElectronScatering.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/zyffcc/gisaxs-book/issues/new?title=Issue%20on%20page%20%2Fnb_src/02_singleElectronScatering.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/nb_src/02_singleElectronScatering.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>单电子 X 射线散射（Thomson & Compton)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. 基本量与几何</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thomson">2. Thomson：单自由电子的<strong>弹性</strong>散射（经典）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1 极化因子（实验几何很关键）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.2 角度平均与总截面</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compton">3. Compton：单自由电子的<strong>非弹性</strong>散射（量子）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4. 从“电子”到“原子/分子/材料”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5. 常用换算与数值</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">6. 实操提示（避免常见坑）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook">7. 练习（可在 Notebook 中直接运行）</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="x-thomson-compton">
+<h1>单电子 X 射线散射（Thomson &amp; Compton)<a class="headerlink" href="#x-thomson-compton" title="Link to this heading">#</a></h1>
+<blockquote id="sec-single-electron">
+<div><p>本章以“<strong>单电子</strong>”为微观散射体，梳理两类基石过程：<br />
+<strong>Thomson</strong>（弹性、经典）与 <strong>Compton</strong>（非弹性、量子）。读完可直接用于 SAXS/WAXS/GISAXS 中的强度、极化与几何判断。</p>
+</div></blockquote>
+<section id="id1">
+<h2>1. 基本量与几何<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>入射/散射波矢：<span class="math notranslate nohighlight">\(\mathbf{k}\)</span> 与 <span class="math notranslate nohighlight">\(\mathbf{k'}\)</span>，夹角记作 <span class="math notranslate nohighlight">\(\psi=\angle(\mathbf{k},\mathbf{k'})\)</span>。<br />
+常见记号：<span class="math notranslate nohighlight">\(2\theta=\psi\)</span>（衍射学里把 <span class="math notranslate nohighlight">\(\theta\)</span> 叫“Bragg 半角”）。</p></li>
+<li><p>散射矢量：<span class="math notranslate nohighlight">\(\mathbf{Q}=\mathbf{k'}-\mathbf{k}\)</span>，其模</p>
+<div class="math notranslate nohighlight">
+\[|\mathbf{Q}|=\frac{4\pi}{\lambda}\sin\theta=\frac{4\pi}{\lambda}\sin\frac{\psi}{2}\]</div>
+</li>
+<li><p>极化向量：入射 <span class="math notranslate nohighlight">\(\hat\varepsilon\)</span>，散射 <span class="math notranslate nohighlight">\(\hat\varepsilon'\)</span>。</p></li>
+<li><p>微分散射截面（本征强度）：</p>
+<div class="math notranslate nohighlight">
+\[\frac{d\sigma}{d\Omega}=\frac{I_{\rm sc}}{\Phi_0\,\Delta\Omega}\]</div>
+</li>
+</ul>
+</section>
+<section id="thomson">
+<h2>2. Thomson：单自由电子的<strong>弹性</strong>散射（经典）<a class="headerlink" href="#thomson" title="Link to this heading">#</a></h2>
+<p>入射电场驱动电子做受迫振荡，远场以偶极辐射形式再辐射。结果是</p>
+<div class="math notranslate nohighlight">
+\[\boxed{ \frac{d\sigma}{d\Omega}=r_0^2\,|\hat\varepsilon\!\cdot\!\hat\varepsilon'|^2 }\qquad(\text{Thomson})\]</div>
+<p>其中</p>
+<div class="math notranslate nohighlight">
+\[r_0=\frac{e^2}{4\pi\varepsilon_0 m c^2}\approx 2.8179\times10^{-15}\ \text{m}=2.8179\times10^{-5}\ \text{Å}\]</div>
+<p>为<strong>经典电子半径</strong>（或 Thomson 散射长度）。</p>
+<section id="id2">
+<h3>2.1 极化因子（实验几何很关键）<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><strong>非偏振</strong>入射光：</p>
+<div class="math notranslate nohighlight">
+\[\left\langle|\hat\varepsilon\!\cdot\!\hat\varepsilon'|^2\right\rangle=\tfrac12(1+\cos^2\psi)\]</div>
+</li>
+<li><p><strong>线偏振</strong>（同步辐射近似水平偏振）：<br />
+若选择<strong>竖直散射面</strong>，极化惩罚最小（<span class="math notranslate nohighlight">\(P\!\approx\!1\)</span>）；<br />
+若在<strong>水平散射面</strong>，<span class="math notranslate nohighlight">\(P=\cos^2\psi\)</span>，大角度被强烈抑制。</p>
+<blockquote>
+<div><p>经验：做弹性散射测量，把探测器布在<strong>竖直散射面</strong>更“吃极化”；做荧光时常把探测器放在<strong>水平面且 <span class="math notranslate nohighlight">\(\psi\!\approx\!90^\circ\)</span></strong> 以抑制弹性背景。</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="id3">
+<h3>2.2 角度平均与总截面<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>对各向平均后得到总截面</p>
+<div class="math notranslate nohighlight">
+\[\boxed{ \sigma_T=\frac{8\pi}{3}r_0^2\approx 6.652\times10^{-29}\ \text{m}^2=0.665\ \text{barn} }\]</div>
+<p>（在 X 射线能区对<strong>自由</strong>电子近似与能量无关）。</p>
+</section>
+</section>
+<section id="compton">
+<h2>3. Compton：单自由电子的<strong>非弹性</strong>散射（量子）<a class="headerlink" href="#compton" title="Link to this heading">#</a></h2>
+<p>把 X 射线视作光子，与静止电子散射，能量与动量守恒给出<strong>康普顿位移</strong>：</p>
+<div class="math notranslate nohighlight">
+\[\boxed{ \lambda'-\lambda=\lambda_C(1-\cos\psi) },\quad
+\lambda_C=\frac{h}{m c}=2.4263\times10^{-12}\ \text{m}=0.024263\ \text{Å}\]</div>
+<p>等价的能量形式（<span class="math notranslate nohighlight">\(E=h c/\lambda\)</span>）：</p>
+<div class="math notranslate nohighlight">
+\[\boxed{ E'=\frac{E}{\,1+\frac{E}{m c^2}(1-\cos\psi)\,} },\qquad m c^2=511\ \text{keV}\]</div>
+<p><strong>要点</strong>：Compton 是<strong>非相干</strong>的，形成随角度/能量缓变的背景；能谱探测器可把它与弹性峰分开。</p>
+<div class="admonition-thomson-vs-compton admonition">
+<p class="admonition-title">小结：Thomson vs. Compton</p>
+<ul class="simple">
+<li><p><strong>是否弹性</strong>：Thomson 弹性（<span class="math notranslate nohighlight">\(E'=E\)</span>），Compton 非弹性（<span class="math notranslate nohighlight">\(E'\!&lt;\!E\)</span>）。</p></li>
+<li><p><strong>是否相干</strong>：Thomson 可相干叠加（到原子/晶体），Compton 通常视为非相干背景。</p></li>
+<li><p><strong>角分布</strong>：Thomson 强烈依赖极化/几何；Compton 更平滑。</p></li>
+</ul>
+</div>
+</section>
+<section id="id4">
+<h2>4. 从“电子”到“原子/分子/材料”<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<ul>
+<li><p><strong>原子弹性散射幅</strong>：</p>
+<div class="math notranslate nohighlight">
+\[f(Q,\omega)=f^0(Q)+f'(\omega)+i f''(\omega)\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(f^0(Q)\)</span> 是电子密度的傅里叶变换（形状因子），<span class="math notranslate nohighlight">\(f',f''\)</span> 是靠近吸收边显著变化的<strong>色散修正</strong>。强度 <span class="math notranslate nohighlight">\(\propto |r_0 f|^2\)</span>。</p>
+</li>
+<li><p><strong>分子/纳米结构/晶体</strong>：幅度按相位因子叠加；满足衍射条件时出现相干增强（Bragg/Laue）。</p></li>
+<li><p><strong>GISAXS 关联</strong>：大角度分辨通常受极化与几何强烈影响；小角区（小 <span class="math notranslate nohighlight">\(Q\)</span>）<span class="math notranslate nohighlight">\(f^0(Q)\!\to\!Z\)</span>（原子序数）是常用近似起点。</p></li>
+</ul>
+</section>
+<section id="id5">
+<h2>5. 常用换算与数值<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>波长/能量：<span class="math notranslate nohighlight">\(\lambda(\text{Å})=\dfrac{12.398}{E(\text{keV})}\)</span>。</p></li>
+<li><p><span class="math notranslate nohighlight">\(r_0=2.8179\times10^{-15}\)</span> m；<span class="math notranslate nohighlight">\(\ \sigma_T=0.665\)</span> barn。</p></li>
+<li><p>康普顿波长（用于位移公式）：<span class="math notranslate nohighlight">\(\lambda_C=h/(m c)=2.4263\times10^{-12}\)</span> m（<strong>不是</strong>约化康普顿波长 <span class="math notranslate nohighlight">\(\hbar/(mc)\)</span>）。</p></li>
+</ul>
+</section>
+<section id="id6">
+<h2>6. 实操提示（避免常见坑）<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>极化/散射面</strong>的选择能带来 2–10× 的强度差异；报告结果时应注明几何与极化修正。</p></li>
+<li><p>做定量强度比对时，用 <strong><span class="math notranslate nohighlight">\(d\sigma/d\Omega\)</span></strong> 或做 <strong>通量/固角归一</strong>，避免把器件因素混入。</p></li>
+<li><p>中高能、背散射几何下 <strong>Compton 背景</strong>不可忽略；若可用能谱分辨，先做能窗分离再做结构分析。</p></li>
+</ul>
+</section>
+<section id="notebook">
+<h2>7. 练习（可在 Notebook 中直接运行）<a class="headerlink" href="#notebook" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 练习 1：12 keV、psi=90° 的康普顿位移与能量变化</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">h</span> <span class="o">=</span> <span class="mf">6.62607015e-34</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">299792458.0</span>
+<span class="n">me</span> <span class="o">=</span> <span class="mf">9.10938356e-31</span>
+<span class="n">mc2</span> <span class="o">=</span> <span class="mf">511e3</span>  <span class="c1"># eV</span>
+<span class="n">lamC</span> <span class="o">=</span> <span class="n">h</span><span class="o">/</span><span class="p">(</span><span class="n">me</span><span class="o">*</span><span class="n">c</span><span class="p">)</span>  <span class="c1"># m</span>
+<span class="n">E</span> <span class="o">=</span> <span class="mf">12e3</span>  <span class="c1"># eV</span>
+<span class="n">psi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">90.0</span><span class="p">)</span>
+<span class="c1"># 位移（米 &amp; Å）</span>
+<span class="n">delta_lam</span> <span class="o">=</span> <span class="n">lamC</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">psi</span><span class="p">))</span>
+<span class="n">delta_lam_A</span> <span class="o">=</span> <span class="n">delta_lam</span><span class="o">*</span><span class="mf">1e10</span>
+<span class="c1"># E&#39;（eV）</span>
+<span class="n">Eprime</span> <span class="o">=</span> <span class="n">E</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">E</span><span class="o">/</span><span class="n">mc2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">psi</span><span class="p">)))</span>
+<span class="n">E</span><span class="p">,</span> <span class="n">Eprime</span><span class="p">,</span> <span class="n">delta_lam_A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(12000.0, np.float64(11724.665391969407), np.float64(0.024263102763720196))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition- admonition">
+<p class="admonition-title">练习 2（手推）</p>
+<p>推导非偏振光的 Thomson 角分布 <span class="math notranslate nohighlight">\(\tfrac{1}{2}(1+\cos^2\psi)\)</span>；<br />
+并画出水平/竖直散射面下的极化因子曲线，解释为何竖直面更“吃极化”。</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./nb_src"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. 基本量与几何</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thomson">2. Thomson：单自由电子的<strong>弹性</strong>散射（经典）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.1 极化因子（实验几何很关键）</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.2 角度平均与总截面</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compton">3. Compton：单自由电子的<strong>非弹性</strong>散射（量子）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4. 从“电子”到“原子/分子/材料”</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5. 常用换算与数值</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">6. 实操提示（避免常见坑）</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook">7. 练习（可在 Notebook 中直接运行）</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yufeng Zhai
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
